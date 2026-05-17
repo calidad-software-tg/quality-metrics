@@ -1,0 +1,30 @@
+# Credenciales
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Datos cacheados (opcional ignorar o no)
+data/raw/*.csv
+data/raw/*.json
+
+# Outputs generados
+outputs/plots/*.png
+outputs/plots/*.pdf
+
+# macOS
+.DS_Store
+
+# IDEs
+.vscode/
+.idea/
