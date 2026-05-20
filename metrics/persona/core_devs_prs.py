@@ -7,7 +7,7 @@ class CoreDevsPRs(Metrica):
         "Cuenta cuántos Pull Requests creó cada uno de los desarrolladores principales "
         "definidos en la configuración, usando la API de búsqueda de GitHub."
     )
-    dimension = "Persona"
+    dimension = ["Persona"]
     interpretacion = (
         "Permite evaluar el nivel de participación individual de los desarrolladores clave "
         "y detectar desigualdades en la distribución de tareas. "

@@ -9,7 +9,7 @@ class ContinuousIntegration(Metrica):
         "Verifica si el repositorio contiene archivos de configuración de CI "
         "(Travis CI, GitHub Actions, GitLab CI, CircleCI, Jenkins)."
     )
-    dimension = "Proceso"
+    dimension = ["Proceso"]
     interpretacion = (
         "La presencia de CI es un indicador positivo de madurez en el proceso de desarrollo: "
         "automatiza pruebas, compilaciones y despliegues, reduciendo errores manuales."

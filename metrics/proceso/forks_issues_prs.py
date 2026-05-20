@@ -20,7 +20,7 @@ class ForksIssuesPRs(Metrica):
         "Obtiene el total de forks, issues (totales y abiertos) y pull requests "
         "(totales, fusionados y cerrados sin fusionar) del repositorio via GraphQL."
     )
-    dimension = "Proceso"
+    dimension = ["Proceso"]
     interpretacion = (
         "Muchos forks indican popularidad o reutilización. Issues abiertos reflejan trabajo pendiente. "
         "La relación PRs fusionados / cerrados indica la eficiencia en la integración de código."

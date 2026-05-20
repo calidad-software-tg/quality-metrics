@@ -6,6 +6,15 @@ from core.base import Metrica
 
 class CommitFrequency(Metrica):
     nombre = "Frecuencia de Commits"
+    descripcion = (
+        "Cuenta la cantidad de commits por día en el repositorio. "
+        "Permite observar la cadencia y regularidad del trabajo del equipo."
+    )
+    dimension = ["Proceso"]
+    interpretacion = (
+        "Una frecuencia regular indica un equipo con ritmo sostenido. "
+        "Picos aislados pueden reflejar sprints intensos o acumulación de trabajo."
+    )
 
     def __init__(self, extractor):
         self._extractor = extractor

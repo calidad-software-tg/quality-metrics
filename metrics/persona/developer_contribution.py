@@ -9,7 +9,7 @@ class DeveloperContribution(Metrica):
         "Cuenta cuántos commits realizó cada autor en el repositorio. "
         "Permite analizar la distribución del trabajo entre colaboradores."
     )
-    dimension = "Persona"
+    dimension = ["Persona"]
     interpretacion = (
         "Una distribución muy desigual puede indicar dependencia de pocos autores (bus factor alto). "
         "Una distribución uniforme refleja colaboración balanceada entre el equipo."

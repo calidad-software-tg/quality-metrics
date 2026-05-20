@@ -2,6 +2,15 @@ from core.base import Metrica
 
 class Churn(Metrica):
     nombre = "Churn"
+    descripcion = (
+        "Mide el volumen máximo de líneas agregadas, eliminadas y modificadas "
+        "en un archivo individual a lo largo de los commits del repositorio."
+    )
+    dimension = ["Producto"]
+    interpretacion = (
+        "Un churn alto puede indicar inestabilidad en el código o refactorizaciones frecuentes. "
+        "Un churn bajo sostenido sugiere código estable y maduro."
+    )
 
     def __init__(self, extractor):
         self._extractor = extractor

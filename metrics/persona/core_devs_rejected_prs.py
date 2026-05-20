@@ -7,7 +7,7 @@ class CoreDevsRejectedPRs(Metrica):
         "Cuenta las Pull Requests cerradas sin fusionar por cada desarrollador principal. "
         "Identifica contribuciones que no fueron integradas al código base."
     )
-    dimension = "Persona"
+    dimension = ["Persona"]
     interpretacion = (
         "Muchas PRs rechazadas pueden indicar falta de alineación con los estándares del proyecto, "
         "problemas de calidad de código o dificultades en el proceso de revisión."

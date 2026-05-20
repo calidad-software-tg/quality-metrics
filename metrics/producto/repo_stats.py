@@ -26,7 +26,7 @@ class RepoStats(Metrica):
         "Calcula el número de ramas activas, colaboradores con acceso "
         "y líneas de código estimadas en los archivos raíz del repositorio."
     )
-    dimension = "Producto"
+    dimension = ["Producto"]
     interpretacion = (
         "Más ramas activas sugieren desarrollo paralelo intenso. "
         "El conteo de colaboradores refleja el tamaño del equipo. "

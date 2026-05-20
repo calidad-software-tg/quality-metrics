@@ -31,7 +31,7 @@ class DeveloperOwnership(Metrica):
         "Calcula el porcentaje de líneas de código atribuidas a cada autor "
         "usando git blame sobre todos los archivos del repositorio (API GraphQL)."
     )
-    dimension = "Persona"
+    dimension = ["Persona"]
     interpretacion = (
         "Un desarrollador con alta propiedad es el principal responsable de esa base de código. "
         "Concentración alta en un solo autor puede ser un riesgo si ese desarrollador abandona el proyecto."

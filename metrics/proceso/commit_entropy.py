@@ -10,7 +10,7 @@ class CommitEntropy(Metrica):
         "Mide la dispersión de los cambios en los commits usando la entropía de Shannon. "
         "Cuantifica la variabilidad en la cantidad de archivos modificados por commit."
     )
-    dimension = "Proceso"
+    dimension = ["Proceso"]
     interpretacion = (
         "Entropía baja: commits específicos y cohesivos que afectan pocos archivos. "
         "Entropía alta: commits dispersos que tocan muchos archivos distintos, "

@@ -15,7 +15,7 @@ class OpenPullRequests(Metrica):
         "Cuenta cuántas Pull Requests están actualmente abiertas "
         "(sin fusionar ni cerrar). Indica el trabajo pendiente de revisión."
     )
-    dimension = "Proceso"
+    dimension = ["Proceso"]
     interpretacion = (
         "Un número alto de PRs abiertas puede señalar cuellos de botella en la revisión "
         "o una alta velocidad de desarrollo. Conviene monitorear la tendencia en el tiempo."
