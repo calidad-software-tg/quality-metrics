@@ -82,10 +82,10 @@ open_prs = OpenPullRequests(extractor)
 print(open_prs.calcular(GITHUB_ORG, REPO_NAME))
 ```
 
-## Ejemplo de salida
+## Última salida
 
 ```json
 {
-  "open_pull_requests": 7
+  "open_pull_requests": 54
 }
 ```

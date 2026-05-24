@@ -95,15 +95,15 @@ forks = ForksIssuesPRs(extractor)
 print(forks.calcular(GITHUB_ORG, REPO_NAME))
 ```
 
-## Ejemplo de salida
+## Última salida
 
 ```json
 {
-  "forks": 34,
-  "issues_total": 120,
-  "issues_open": 18,
-  "pull_requests_total": 95,
-  "pull_requests_merged": 78,
-  "pull_requests_closed": 11
+  "forks": 5221,
+  "issues_total": 1742,
+  "issues_open": 229,
+  "pull_requests_total": 20651,
+  "pull_requests_merged": 18725,
+  "pull_requests_closed": 1872
 }
 ```

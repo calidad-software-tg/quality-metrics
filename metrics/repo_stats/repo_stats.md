@@ -107,12 +107,12 @@ stats = RepoStats(extractor)
 print(stats.calcular(GITHUB_ORG, REPO_NAME))
 ```
 
-## Ejemplo de salida
+## Última salida
 
 ```json
 {
-  "branches": 12,
-  "collaborators": 5,
-  "estimated_lines_of_code": 3840
+  "branches": 46,
+  "collaborators": 4,
+  "estimated_lines_of_code": 3193
 }
 ```

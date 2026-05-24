@@ -82,11 +82,11 @@ ci = ContinuousIntegration(extractor)
 print(ci.calcular(GITHUB_ORG, REPO_NAME))
 ```
 
-## Ejemplo de salida
+## Última salida
 
 ```json
 {
   "has_ci": true,
-  "ci_files_found": [".github", ".travis.yml"]
+  "ci_files_found": [".github"]
 }
 ```

@@ -20,15 +20,28 @@ class CommitEntropy(Metrica):
     def __init__(self, extractor):
         self._extractor = extractor
 
-    def calcular(self, owner: str, repo: str, limite: int = None) -> dict:
-        commits = self._extractor.get_commits(owner, repo, limite=limite)
-        file_counts = [
-            len(self._extractor.get_commit_files(c["url"]))
-            for c in commits
-        ]
+    def calcular(self, owner: str = None, repo: str = None, limite: int = None) -> dict:
+        cache = self._extractor.load_cache("commit_entropy") if not limite else None
+        last_sha = cache.get("last_sha") if cache else None
+        cached_counts = cache.get("file_counts", []) if cache else []
+
+        newest_sha = None
+        new_counts = []
+        for commit in self._extractor.iter_commits(limite=limite, since_sha=last_sha):
+            if newest_sha is None:
+                newest_sha = commit.hexsha
+            new_counts.append(len(commit.stats.files))
+
+        file_counts = new_counts + cached_counts
+
+        if newest_sha and not limite:
+            self._extractor.save_cache("commit_entropy", {
+                "last_sha": newest_sha,
+                "file_counts": file_counts,
+            })
+
         if not file_counts:
             return {"entropy": 0.0}
-
         total = len(file_counts)
         freq = Counter(file_counts)
         entropy = -sum((c / total) * log2(c / total) for c in freq.values())

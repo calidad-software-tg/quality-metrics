@@ -86,10 +86,10 @@ entropy = CommitEntropy(extractor)
 print(entropy.calcular(GITHUB_ORG, REPO_NAME))
 ```
 
-## Ejemplo de salida
+## Última salida
 
 ```json
 {
-  "entropy": 2.3471
+  "entropy": 1.8089
 }
 ```

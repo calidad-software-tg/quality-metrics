@@ -80,12 +80,12 @@ churn = Churn(extractor)
 print(churn.calcular(GITHUB_ORG, REPO_NAME))
 ```
 
-## Ejemplo de salida
+## Última salida
 
 ```json
 {
-  "max_lines_added": 412,
-  "max_lines_deleted": 198,
-  "max_lines_changed": 610
+  "max_lines_added": 835,
+  "max_lines_deleted": 584,
+  "max_lines_changed": 945
 }
 ```

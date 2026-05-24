@@ -1,40 +1,53 @@
-from config.settings import GITHUB_TOKEN, GITHUB_API_BASE, GITHUB_ORG, REPO_NAME
-from core.github_extractor import GitHubExtractor
+import os
 
-from metrics.producto.churn import Churn
-from metrics.producto.repo_stats import RepoStats
-from metrics.proceso.commit_frequency import CommitFrequency
-from metrics.proceso.commit_entropy import CommitEntropy
-from metrics.proceso.continuous_integration import ContinuousIntegration
-from metrics.proceso.forks_issues_prs import ForksIssuesPRs
-from metrics.proceso.open_pull_requests import OpenPullRequests
-from metrics.persona.developer_contribution import DeveloperContribution
-from metrics.persona.developer_ownership import DeveloperOwnership
-from metrics.persona.core_devs_prs import CoreDevsPRs
-from metrics.persona.core_devs_rejected_prs import CoreDevsRejectedPRs
+from config.settings import GITHUB_TOKEN, GITHUB_API_BASE, GITHUB_ORG, REPO_NAME, REPO_LOCAL_PATH  # noqa: F401
+from core.github_extractor import GitHubExtractor
+from core.git_extractor import GitExtractor
+
+# from metrics.producto.churn import Churn  # noqa: F401
+# from metrics.restantes.repo_stats import RepoStats  # noqa: F401
+# from metrics.commit_frequency.commit_frequency import CommitFrequency  # noqa: F401
+# from metrics.proceso.commit_entropy import CommitEntropy  # noqa: F401
+# from metrics.restantes.continuous_integration import ContinuousIntegration  # noqa: F401
+# from metrics.restantes.forks_issues_prs import ForksIssuesPRs  # noqa: F401
+# from metrics.restantes.open_pull_requests import OpenPullRequests  # noqa: F401
+# from metrics.persona.developer_contribution import DeveloperContribution  # noqa: F401
+from metrics.restantes.developer_ownership import DeveloperOwnership  # noqa: F401
+# from metrics.restantes.core_devs_prs import CoreDevsPRs  # noqa: F401
+# from metrics.persona.core_devs_rejected_prs import CoreDevsRejectedPRs  # noqa: F401
 
 CORE_DEVELOPERS = []  # completar con los logins de GitHub de los devs principales
 
-extractor = GitHubExtractor(GITHUB_TOKEN, GITHUB_API_BASE)
+cache_dir = os.path.join(os.path.dirname(__file__), "data", "raw")
+git = GitExtractor(REPO_LOCAL_PATH, cache_dir=cache_dir)
+gh = GitHubExtractor(GITHUB_TOKEN, GITHUB_API_BASE)
 
+ORIGINAL_OWNER = "tldr-pages"
+ORIGINAL_REPO  = "tldr"
+
+# Cada tupla: (nombre, metrica, owner, repo)
+# Las métricas de comunidad usan el repo original; el resto usa el fork propio.
 metricas = [
-    ("Churn",                     Churn(extractor)),
-    ("CommitFrequency",           CommitFrequency(extractor)),
-    ("CommitEntropy",             CommitEntropy(extractor)),
-    ("ContinuousIntegration",     ContinuousIntegration(extractor)),
-    ("DeveloperContribution",     DeveloperContribution(extractor)),
-    ("DeveloperOwnership",        DeveloperOwnership(extractor)),
-    ("RepoStats",                 RepoStats(extractor)),
-    ("ForksIssuesPRs",            ForksIssuesPRs(extractor)),
-    ("OpenPullRequests",          OpenPullRequests(extractor)),
-    ("CoreDevsPRs",               CoreDevsPRs(extractor, CORE_DEVELOPERS)),
-    ("CoreDevsRejectedPRs",       CoreDevsRejectedPRs(extractor, CORE_DEVELOPERS)),
+    # local git — rápidas, sin rate limit
+    # ("Churn",                  Churn(git),                        GITHUB_ORG,     REPO_NAME),
+    # ("CommitFrequency",        CommitFrequency(git),              GITHUB_ORG,     REPO_NAME),
+    # ("CommitEntropy",          CommitEntropy(git),                GITHUB_ORG,     REPO_NAME),
+    # ("DeveloperContribution",  DeveloperContribution(git),        GITHUB_ORG,     REPO_NAME),
+    # GitHub API — repo propio
+    # ("ContinuousIntegration",  ContinuousIntegration(gh),         GITHUB_ORG,     REPO_NAME),
+    # ("RepoStats",              RepoStats(gh),                     GITHUB_ORG,     REPO_NAME),
+    ("DeveloperOwnership",     DeveloperOwnership(gh),           GITHUB_ORG,     REPO_NAME),
+    # ("CoreDevsPRs",            CoreDevsPRs(gh, CORE_DEVELOPERS),  GITHUB_ORG,     REPO_NAME),
+    # ("CoreDevsRejectedPRs",    CoreDevsRejectedPRs(gh, CORE_DEVELOPERS), GITHUB_ORG, REPO_NAME),
+    # GitHub API — repo original (forks, issues, PRs reales)
+    # ("ForksIssuesPRs",         ForksIssuesPRs(gh),                ORIGINAL_OWNER, ORIGINAL_REPO),
+    # ("OpenPullRequests",       OpenPullRequests(gh),              ORIGINAL_OWNER, ORIGINAL_REPO),
 ]
 
-for nombre, metrica in metricas:
+for nombre, metrica, owner, repo in metricas:
     print(f"\n--- {nombre} ---")
     try:
-        resultado = metrica.calcular(GITHUB_ORG, REPO_NAME, 5)
+        resultado = metrica.calcular(owner, repo)
         print(resultado)
     except Exception as e:
         print(f"Error: {e}")
