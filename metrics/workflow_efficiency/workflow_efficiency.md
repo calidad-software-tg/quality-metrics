@@ -125,7 +125,7 @@ Un valor en el rango 0–10% es esperable para tldr-pages/tldr dado su modelo de
 
 > **C53 – La eficacia en la asignación de tareas**
 
-La operacionalización propuesta (porcentaje de issues asignados) mide directamente la práctica que el ítem evalúa: cuán sistemáticamente el equipo asigna responsabilidades formales sobre los issues reportados. La dimensión Persona se agrega en la encuesta porque la asignación de issues implica decisiones sobre las personas responsables de cada tarea.
+La operacionalización propuesta (porcentaje de issues asignados) mide directamente la práctica que el ítem evalúa: cuán sistemáticamente el equipo asigna responsabilidades formales sobre los issues reportados. 
 
 ---
 
