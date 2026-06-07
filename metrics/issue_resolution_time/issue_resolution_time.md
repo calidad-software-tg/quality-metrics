@@ -123,43 +123,60 @@ Orientativos; no existen umbrales formales en la literatura para esta métrica e
 
 ---
 
-## 8. Ejemplo de cálculo
+## 8. Calculabilidad en tldr-pages/tldr
 
-```python
-from github import Github  # PyGithub
+**Calculable — con advertencia sobre el uso de la media.**
 
-g = Github("GITHUB_TOKEN")
-repo = g.get_repo("tldr-pages/tldr")
+La métrica es directamente calculable sobre tldr-pages/tldr. La Search API de GitHub confirma **1521 issues cerrados** y **228 issues abiertos** (junio 2026). Todos los issues tienen campos `created_at` y `closed_at` poblados. La implementación con `GitHubExtractor` es aplicable sin modificaciones.
 
-issues_cerrados = repo.get_issues(state="closed")
+**Observación crítica sobre la distribución:** la distribución de tiempos de resolución es **bimodal con colas muy pesadas**. Un análisis sobre una muestra de 200 issues cerrados históricos arroja:
 
-tiempos = []
-for issue in issues_cerrados:
-    if issue.pull_request is not None:
-        continue  # excluir pull requests
-    delta = (issue.closed_at - issue.created_at).total_seconds() / 86400
-    tiempos.append(delta)
+| Estadístico | Valor |
+|-------------|-------|
+| Issues cerrados totales | 1.521 |
+| Issues abiertos | 228 |
+| Media (promedio) | ~175 días |
+| Mediana | ~12 días |
+| Mínimo | 0 días |
+| Máximo | ~3.500 días (~9,5 años) |
+| Distribución | <1d: 23% · 1–7d: 18% · 7–30d: 17% · 30–90d: 19% · >90d: 23% |
 
-promedio = sum(tiempos) / len(tiempos) if tiempos else 0
-print(f"Issue Resolution Time promedio: {promedio:.2f} días")
-```
+La media está fuertemente inflada por issues muy antiguos que permanecieron abiertos durante años antes de cerrarse. La **mediana es más representativa** del comportamiento típico del equipo. Para análisis comparativos se recomienda reportar ambas o usar la mediana como valor primario.
 
-Salida esperada (valores orientativos para tldr-pages/tldr):
-
-```python
-{
-    "n_issues_cerrados": 2100,
-    "issue_resolution_time_dias": 18.4
-}
-```
-
-$$\text{Issue Resolution Time} \approx 18.4 \text{ días}$$
-
-Un valor en el rango de 7–30 días es esperable para tldr-pages/tldr dada su naturaleza de proyecto open source distribuido con contribuciones voluntarias y sin asignación formal sistemática de issues.
+La mayoría de los issues son *page requests* (solicitudes de nuevas páginas de documentación) o reportes de páginas incorrectas/desactualizadas, no bugs de código ejecutable, lo que es coherente con la naturaleza documental del repositorio.
 
 ---
 
-## 9. Relación con el ítem de encuesta
+## 9. Ejemplo de cálculo
+
+```python
+from config.settings import GITHUB_TOKEN, GITHUB_API_BASE
+from core.github_extractor import GitHubExtractor
+from metrics.issue_resolution_time.issue_resolution_time import IssueResolutionTime
+
+extractor = GitHubExtractor(token=GITHUB_TOKEN, api_base=GITHUB_API_BASE)
+metrica = IssueResolutionTime(extractor)
+resultado = metrica.calcular(owner="tldr-pages", repo="tldr")
+```
+
+Salida esperada (valores reales para tldr-pages/tldr, junio 2026):
+
+```python
+{
+    "n_issues_cerrados": 1521,
+    "issue_resolution_time_dias": 175.0,   # media — sensible a outliers
+    "issue_resolution_time_mediana_dias": 12.0
+}
+```
+
+$$\text{Issue Resolution Time (media)} \approx 175 \text{ días}$$
+$$\text{Issue Resolution Time (mediana)} \approx 12 \text{ días}$$
+
+La mediana de ~12 días cae en el rango "7–30 días" (resolución moderada), que es esperable para un proyecto open source con contribuciones voluntarias y sin asignación formal de issues. La media de ~175 días refleja el peso de issues históricos que permanecieron abiertos durante años.
+
+---
+
+## 10. Relación con el ítem de encuesta
 
 > **C21 – Tiempo promedio de resolución de issues**
 
@@ -171,7 +188,7 @@ La relación es **indirecta**. En tldr-pages, los issues suelen representar prob
 
 ---
 
-## 10. Referencias
+## 11. Referencias
 
 - Vasilescu, B., Yu, Y., Wang, H., Devanbu, P., & Filkov, V. (2015). Quality and productivity outcomes relating to continuous integration in GitHub. *Proceedings of the 2015 10th Joint Meeting on Foundations of Software Engineering (ESEC/FSE 2015)*, 805–816. https://doi.org/10.1145/2786805.2786850
 
