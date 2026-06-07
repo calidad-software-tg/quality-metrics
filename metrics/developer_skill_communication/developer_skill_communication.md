@@ -1,4 +1,4 @@
-# CXX – Frecuencia de Participación en Discusiones Técnicas (Developer Communication Skill)
+# Frecuencia de Participación en Discusiones Técnicas (Developer Communication Skill)
 
 ---
 
