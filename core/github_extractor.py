@@ -57,3 +57,26 @@ class GitHubExtractor:
             url = response.links.get("next", {}).get("url")
             params = None
         return results
+
+    def get_paginated(self, owner: str, repo: str, endpoint: str,
+                      params: dict = None, max_items: int = None) -> list:
+        """
+        Pagina un endpoint REST relativo al repo (ej. 'issues/comments').
+        Si max_items está seteado, FRENA la paginación apenas junta esa cantidad
+        (no descarga el histórico completo). Sirve para pruebas con limite.
+        """
+        url = f"{self._api_base}/repos/{owner}/{repo}/{endpoint}"
+        query = {"per_page": 100}
+        if params:
+            query.update(params)
+
+        results = []
+        while url:
+            response = self._request(url, query)
+            data = response.json()
+            results.extend(data if isinstance(data, list) else [data])
+            if max_items and len(results) >= max_items:
+                return results[:max_items]
+            url = response.links.get("next", {}).get("url")
+            query = None  # la URL "next" ya trae los params
+        return results
