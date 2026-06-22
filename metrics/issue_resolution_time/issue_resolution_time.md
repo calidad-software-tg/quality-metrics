@@ -1,4 +1,4 @@
-# C21 – Tiempo Promedio de Resolución de Issues (Issue Resolution Time)
+# C35 – Tiempo Promedio de Resolución de Issues (Issue Resolution Time)
 
 ---
 
@@ -133,9 +133,9 @@ La métrica es directamente calculable sobre tldr-pages/tldr. La Search API de G
 
 | Estadístico | Valor |
 |-------------|-------|
-| Issues cerrados totales | 1.521 |
+| Issues cerrados totales | 1.531 |
 | Issues abiertos | 228 |
-| Media (promedio) | ~175 días |
+| Media (promedio) | ~157 días |
 | Mediana | ~12 días |
 | Mínimo | 0 días |
 | Máximo | ~3.500 días (~9,5 años) |
@@ -163,13 +163,19 @@ Salida esperada (valores reales para tldr-pages/tldr, junio 2026):
 
 ```python
 {
-    "n_issues_cerrados": 1521,
-    "issue_resolution_time_dias": 175.0,   # media — sensible a outliers
-    "issue_resolution_time_mediana_dias": 12.0
+    "n_issues_cerrados": 1531,
+    "issue_resolution_time_dias": 156.94,   # media — sensible a outliers
+    "issue_resolution_time_mediana_dias": 11.97
 }
 ```
 
-$$\text{Issue Resolution Time (media)} \approx 175 \text{ días}$$
+### Última ejecución real (junio 2026)
+
+```json
+{"n_issues_cerrados": 1531, "issue_resolution_time_dias": 156.94, "issue_resolution_time_mediana_dias": 11.97}
+```
+
+$$\text{Issue Resolution Time (media)} \approx 157 \text{ días}$$
 $$\text{Issue Resolution Time (mediana)} \approx 12 \text{ días}$$
 
 La mediana de ~12 días cae en el rango "7–30 días" (resolución moderada), que es esperable para un proyecto open source con contribuciones voluntarias y sin asignación formal de issues. La media de ~175 días refleja el peso de issues históricos que permanecieron abiertos durante años.
