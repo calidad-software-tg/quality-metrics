@@ -119,15 +119,21 @@ Salida esperada (valores orientativos para tldr-pages/tldr):
 
 ```python
 {
-    "n_contributors": 1873,
+    "n_contributors": 3279,
     "commits_per_contributor": {"user_a": 3241, "user_b": 1102, "user_c": 874, ...},
-    "gini_commits": 0.83
+    "gini_commits": 0.7916
 }
 ```
 
-$$G = \frac{\sum_{i=1}^{1873}(2i - 1873 - 1) \cdot y_i}{1873^2 \cdot \bar{y}} \approx 0.83$$
+$$G = \frac{\sum_{i=1}^{3279}(2i - 3279 - 1) \cdot y_i}{3279^2 \cdot \bar{y}} \approx 0.79$$
 
-Un valor G ≈ 0.83 indica concentración muy alta: un grupo reducido de desarrolladores líderes acumula la mayor parte de los commits, patrón esperable en proyectos open source maduros con pocos *core developers* activos. Correlaciona positivamente con la tasa de cierre de issues a largo plazo (Jarczyk et al., 2018).
+Un valor G ≈ 0.79 indica alta concentración: un grupo reducido de desarrolladores líderes acumula la mayor parte de los commits, patrón esperable en proyectos open source maduros con pocos *core developers* activos. Correlaciona positivamente con la tasa de cierre de issues a largo plazo (Jarczyk et al., 2018).
+
+### Última ejecución real (junio 2026)
+
+```json
+{"n_contributors": 3279, "gini_commits": 0.7916}
+```
 
 ---
 
