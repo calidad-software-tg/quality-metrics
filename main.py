@@ -15,6 +15,14 @@ from core.git_extractor import GitExtractor
 from metrics.restantes.developer_ownership import DeveloperOwnership  # noqa: F401
 # from metrics.restantes.core_devs_prs import CoreDevsPRs  # noqa: F401
 # from metrics.persona.core_devs_rejected_prs import CoreDevsRejectedPRs  # noqa: F401
+from metrics.social_interaction.social_interaction import SocialInteractionBetweenDevelopers  # noqa: F401
+from metrics.number_of_open_issues.number_of_open_issues import NumberOfOpenIssues  # noqa: F401
+from metrics.defect_recurrence_rate.defect_recurrence_rate import DefectRecurrenceRate  # noqa: F401
+from metrics.development_velocity.development_velocity import DevelopmentVelocity  # noqa: F401
+from metrics.user_reported_bugs.user_reported_bugs import UserReportedBugs  # noqa: F401
+from metrics.active_branches.active_branches import NumberOfActiveBranches  # noqa: F401
+
+
 
 CORE_DEVELOPERS = []  # completar con los logins de GitHub de los devs principales
 
@@ -36,12 +44,18 @@ metricas = [
     # GitHub API — repo propio
     # ("ContinuousIntegration",  ContinuousIntegration(gh),         GITHUB_ORG,     REPO_NAME),
     # ("RepoStats",              RepoStats(gh),                     GITHUB_ORG,     REPO_NAME),
-    ("DeveloperOwnership",     DeveloperOwnership(gh),           GITHUB_ORG,     REPO_NAME),
+    # ("DeveloperOwnership",     DeveloperOwnership(gh),           GITHUB_ORG,     REPO_NAME),
     # ("CoreDevsPRs",            CoreDevsPRs(gh, CORE_DEVELOPERS),  GITHUB_ORG,     REPO_NAME),
     # ("CoreDevsRejectedPRs",    CoreDevsRejectedPRs(gh, CORE_DEVELOPERS), GITHUB_ORG, REPO_NAME),
     # GitHub API — repo original (forks, issues, PRs reales)
     # ("ForksIssuesPRs",         ForksIssuesPRs(gh),                ORIGINAL_OWNER, ORIGINAL_REPO),
     # ("OpenPullRequests",       OpenPullRequests(gh),              ORIGINAL_OWNER, ORIGINAL_REPO),
+    # ("SocialInteraction", SocialInteractionBetweenDevelopers(gh), ORIGINAL_OWNER, ORIGINAL_REPO),
+    # ("NumberOfOpenIssues", NumberOfOpenIssues(gh), ORIGINAL_OWNER, ORIGINAL_REPO),
+    # ("DefectRecurrenceRate", DefectRecurrenceRate(gh), ORIGINAL_OWNER, ORIGINAL_REPO),
+    # ("DevelopmentVelocity", DevelopmentVelocity(gh), ORIGINAL_OWNER, ORIGINAL_REPO),
+    # ("UserReportedBugs", UserReportedBugs(gh), ORIGINAL_OWNER, ORIGINAL_REPO), todo: validar core_developers y depues pasarselo al metodo
+    # ("NumberOfActiveBranches", NumberOfActiveBranches(gh), ORIGINAL_OWNER, ORIGINAL_REPO),
 ]
 
 for nombre, metrica, owner, repo in metricas:
@@ -51,3 +65,4 @@ for nombre, metrica, owner, repo in metricas:
         print(resultado)
     except Exception as e:
         print(f"Error: {e}")
+
