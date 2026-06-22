@@ -50,12 +50,12 @@ metricas = [
     # GitHub API — repo original (forks, issues, PRs reales)
     # ("ForksIssuesPRs",         ForksIssuesPRs(gh),                ORIGINAL_OWNER, ORIGINAL_REPO),
     # ("OpenPullRequests",       OpenPullRequests(gh),              ORIGINAL_OWNER, ORIGINAL_REPO),
-    ("SocialInteraction", SocialInteractionBetweenDevelopers(gh), ORIGINAL_OWNER, ORIGINAL_REPO),
-    ("NumberOfOpenIssues", NumberOfOpenIssues(gh), ORIGINAL_OWNER, ORIGINAL_REPO),
-    ("DefectRecurrenceRate", DefectRecurrenceRate(gh), ORIGINAL_OWNER, ORIGINAL_REPO),
-    ("DevelopmentVelocity", DevelopmentVelocity(gh), ORIGINAL_OWNER, ORIGINAL_REPO),
-    ("UserReportedBugs", UserReportedBugs(gh), ORIGINAL_OWNER, ORIGINAL_REPO), #todo: validar core_developers y depues pasarselo al metodo
-    ("NumberOfActiveBranches", NumberOfActiveBranches(gh), ORIGINAL_OWNER, ORIGINAL_REPO),
+    # ("SocialInteraction", SocialInteractionBetweenDevelopers(gh), ORIGINAL_OWNER, ORIGINAL_REPO),
+    # ("NumberOfOpenIssues", NumberOfOpenIssues(gh), ORIGINAL_OWNER, ORIGINAL_REPO),
+    # ("DefectRecurrenceRate", DefectRecurrenceRate(gh), ORIGINAL_OWNER, ORIGINAL_REPO),
+    # ("DevelopmentVelocity", DevelopmentVelocity(gh), ORIGINAL_OWNER, ORIGINAL_REPO),
+    # ("UserReportedBugs", UserReportedBugs(gh), ORIGINAL_OWNER, ORIGINAL_REPO), #todo: validar core_developers y depues pasarselo al metodo
+    # ("NumberOfActiveBranches", NumberOfActiveBranches(gh), ORIGINAL_OWNER, ORIGINAL_REPO),
 ]
 
 for nombre, metrica, owner, repo in metricas:
