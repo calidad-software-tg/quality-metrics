@@ -1,0 +1,149 @@
+{
+  "status": "success",
+  "total_issues_cerrados": 1531,
+  "average_resolution_time": {
+    "media_dias": 156.94,
+    "mediana_dias": 11.97,
+    "min_dias": 0.0,
+    "max_dias": 3507.52,
+    "desv_estandar_dias": 408.33
+  },
+  "intervals": {
+    "1_dia": {
+      "count": 314,
+      "percentage": 20.5
+    },
+    "3_dias": {
+      "count": 504,
+      "percentage": 32.9
+    },
+    "7_dias": {
+      "count": 668,
+      "percentage": 43.6
+    },
+    "30_dias": {
+      "count": 943,
+      "percentage": 61.6
+    },
+    "100_dias": {
+      "count": 1171,
+      "percentage": 76.5
+    },
+    "365_dias": {
+      "count": 1368,
+      "percentage": 89.4
+    }
+  },
+  "cumulative_percentage": {
+    "1_dia": 20.5,
+    "3_dias": 32.9,
+    "7_dias": 43.6,
+    "30_dias": 61.6,
+    "100_dias": 76.5,
+    "365_dias": 89.4
+  },
+  "slowest_issues": [
+    {
+      "number": 266,
+      "title": "Collaborate with bropages/cheat?",
+      "days": 3507.5
+    },
+    {
+      "number": 1071,
+      "title": "Generate a list of requested commands from Mixpanel data",
+      "days": 3266.6
+    },
+    {
+      "number": 784,
+      "title": "Syntax for linking to another tool's page",
+      "days": 3150.4
+    },
+    {
+      "number": 1082,
+      "title": "Add more fields to the commands",
+      "days": 2938.5
+    },
+    {
+      "number": 1022,
+      "title": "tree: add \"prune\" functionality to linux version",
+      "days": 2932.0
+    },
+    {
+      "number": 190,
+      "title": "New pages structure",
+      "days": 2925.9
+    },
+    {
+      "number": 816,
+      "title": "FreeBSD / OpenBSD section(s) proposal.",
+      "days": 2788.9
+    },
+    {
+      "number": 876,
+      "title": "Request: conform to XDG basedir spec",
+      "days": 2761.3
+    },
+    {
+      "number": 1018,
+      "title": "Add convention to indicate origin of option names to Contrib",
+      "days": 2655.5
+    },
+    {
+      "number": 1953,
+      "title": "Automated validation of command options per platform",
+      "days": 2612.4
+    }
+  ],
+  "fastest_issues": [
+    {
+      "number": 14579,
+      "title": "[Archive]: tldr official clients feature parity and maintena",
+      "days": 0.0
+    },
+    {
+      "number": 13935,
+      "title": "[Archive] Applied for Evolving GitHub Issues (Public Preview",
+      "days": 0.0
+    },
+    {
+      "number": 13915,
+      "title": "[Archive] Rename tldr-pages-clients Wiki to Clients Wiki",
+      "days": 0.0
+    },
+    {
+      "number": 12604,
+      "title": "[Archive] Enabled requirement for 2FA/Granular Access Token/",
+      "days": 0.0
+    },
+    {
+      "number": 11492,
+      "title": "[Archive] Created new repository to redirect tldr.sh/chatroo",
+      "days": 0.0
+    },
+    {
+      "number": 10833,
+      "title": "[Archive] Branch protection for main branch has been enabled",
+      "days": 0.0
+    },
+    {
+      "number": 10830,
+      "title": "[Archive] Default branch in `extldr` has been switched to ma",
+      "days": 0.0
+    },
+    {
+      "number": 10198,
+      "title": "[Archive] Mail sent by @kbdharun for requesting Debian tldr ",
+      "days": 0.0
+    },
+    {
+      "number": 10533,
+      "title": "[Archive] Inquiry regarding renaming `tldr` package to `tldr",
+      "days": 0.0
+    },
+    {
+      "number": 11187,
+      "title": "[Archive] Repositories settings changes and standardization ",
+      "days": 0.0
+    }
+  ]
+}
