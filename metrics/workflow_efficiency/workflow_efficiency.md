@@ -105,19 +105,25 @@ metrica = WorkflowEfficiency(extractor)
 resultado = metrica.calcular(owner="tldr-pages", repo="tldr")
 ```
 
-Salida esperada (valores orientativos):
+Salida esperada (valores reales para tldr-pages/tldr, junio 2026):
 
 ```python
 {
-    "total_issues": 3842,
-    "assigned_issues": 312,
-    "workflow_efficiency": 8.12
+    "total_issues": 1758,
+    "assigned_issues": 0,
+    "workflow_efficiency": 0.0
 }
 ```
 
-$$\text{Workflow Efficiency} = \frac{312}{3842} \times 100 \approx 8.12\%$$
+$$\text{Workflow Efficiency} = \frac{0}{1758} \times 100 = 0\%$$
 
-Un valor en el rango 0–10% es esperable para tldr-pages/tldr dado su modelo de contribución open source distribuido, donde la mayoría de los issues son resueltos por contribuciones voluntarias sin asignación explícita previa.
+Un valor de 0% confirma que tldr-pages/tldr no utiliza asignación formal de issues. Todas las contribuciones son voluntarias y sin responsable explícito asignado, coherente con el modelo OSS distribuido del proyecto.
+
+### Última ejecución real (junio 2026)
+
+```json
+{"total_issues": 1758, "assigned_issues": 0, "workflow_efficiency": 0.0}
+```
 
 ---
 

@@ -50,6 +50,9 @@ quality-metrics/
 | Presencia de integración continua | `continuous_integration.py` | [continuous_integration.md](continuous_integration.md) |
 | Forks, issues y pull requests | `forks_issues_prs.py` | [forks_issues_prs.md](forks_issues_prs.md) |
 | Pull requests abiertas | `open_pull_requests.py` | [open_pull_requests.md](open_pull_requests.md) |
+| Centralización del trabajo (Gini) | `centralization_of_work.py` | [centralization_of_work.md](metrics/centralization_of_work/centralization_of_work.md) |
+| Tiempo promedio de resolución de issues | `issue_resolution_time.py` | [issue_resolution_time.md](metrics/issue_resolution_time/issue_resolution_time.md) |
+| Eficiencia de flujo de trabajo | `workflow_efficiency.py` | [workflow_efficiency.md](metrics/workflow_efficiency/workflow_efficiency.md) |
 
 ### Persona
 
@@ -83,3 +86,11 @@ REPO_NAME=nombre-del-repo
 ```
 
 Para métricas de desarrolladores principales, se define la lista `CORE_DEVELOPERS` directamente en `main.py` o se agrega como variable de entorno.
+
+## Últimas ejecuciones reales (tldr-pages/tldr, junio 2026)
+
+| Métrica | Resultado |
+|---|---|
+| Centralización del trabajo (M13) | `{"n_contributors": 3279, "gini_commits": 0.7916}` |
+| Tiempo promedio de resolución de issues (C35) | `{"n_issues_cerrados": 1531, "issue_resolution_time_dias": 156.94, "issue_resolution_time_mediana_dias": 11.97}` |
+| Eficiencia de flujo de trabajo (M12) | `{"total_issues": 1758, "assigned_issues": 0, "workflow_efficiency": 0.0}` |
