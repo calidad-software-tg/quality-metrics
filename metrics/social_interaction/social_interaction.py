@@ -37,6 +37,7 @@ from collections import Counter
 from core.base import Metrica
 
 
+
 # Bots a excluir explícitamente. Las dos primeras señales (sufijo "[bot]" y el
 # tipo que reporta la API) atrapan a la mayoría, pero los bots que usan una
 # cuenta de usuario común (como tldr-bot en tldr-pages) NO terminan en "[bot]"
@@ -54,8 +55,8 @@ BOTS_CONOCIDOS = {
 }
 
 # Tamaños de página para la paginación GraphQL de revisiones.
-_PRS_POR_PAGINA = 50
-_REVIEWS_POR_PR = 100
+_PRS_POR_PAGINA = 100
+_REVIEWS_POR_PR = 10
 
 _QUERY_REVIEWS = """
 query($owner: String!, $repo: String!, $cursor: String) {
@@ -137,54 +138,44 @@ class SocialInteractionBetweenDevelopers(Metrica):
     # ------------------------------------------------------------------ #
     # Comentarios de conversación: /issues/comments separado por html_url
     # ------------------------------------------------------------------ #
-    def _contar_conversacion(self, owner: str, repo: str, limite: int = None):
-        """
-        Pagina /issues/comments (conversación de issues Y de PRs) y los separa
-        por html_url: '/issues/' = issue real, '/pull/' = PR.
-        Devuelve (total_issue, total_pr, autores_issue, autores_pr).
-        """
-        comentarios = self._extractor.get_paginated(
-            owner, repo, "issues/comments", max_items=limite
-        )
-
+    def _contar_conversacion(self, owner, repo, limite=None):
         t_issue = t_pr = 0
         aut_issue, aut_pr = Counter(), Counter()
-        for c in comentarios:
-            user = c.get("user") or {}
-            login = user.get("login")
-            if not self._es_humano(login, tipo=user.get("type")):
-                continue
-            es_pr = "/pull/" in (c.get("html_url") or "")
-            if es_pr:
-                t_pr += 1
-                if login:
-                    aut_pr[login] += 1
-            else:
-                t_issue += 1
-                if login:
-                    aut_issue[login] += 1
+        vistos = 0
+        for pagina in self._extractor.iter_paginated(owner, repo, "issues/comments"):
+            for c in pagina:
+                user = c.get("user") or {}
+                login = user.get("login")
+                if not self._es_humano(login, tipo=user.get("type")):
+                    continue
+                if "/pull/" in (c.get("html_url") or ""):
+                    t_pr += 1
+                    if login: aut_pr[login] += 1
+                else:
+                    t_issue += 1
+                    if login: aut_issue[login] += 1
+            vistos += len(pagina)
+            print(f"    [conversacion] comentarios vistos: {vistos}")
+            if limite and vistos >= limite:
+                break
         return t_issue, t_pr, aut_issue, aut_pr
 
-    # ------------------------------------------------------------------ #
-    # Comentarios inline de revisión: /pulls/comments (todos son de PR)
-    # ------------------------------------------------------------------ #
-    def _contar_comentarios(self, owner: str, repo: str, endpoint: str,
-                            limite: int = None):
-        """Pagina un endpoint plano de comentarios y devuelve (total, Counter)."""
-        comentarios = self._extractor.get_paginated(
-            owner, repo, endpoint, max_items=limite
-        )
-
+    def _contar_comentarios(self, owner, repo, endpoint, limite=None):
         total = 0
         por_autor = Counter()
-        for c in comentarios:
-            user = c.get("user") or {}
-            login = user.get("login")
-            if not self._es_humano(login, tipo=user.get("type")):
-                continue
-            total += 1
-            if login:
-                por_autor[login] += 1
+        vistos = 0
+        for pagina in self._extractor.iter_paginated(owner, repo, endpoint):
+            for c in pagina:
+                user = c.get("user") or {}
+                login = user.get("login")
+                if not self._es_humano(login, tipo=user.get("type")):
+                    continue
+                total += 1
+                if login: por_autor[login] += 1
+            vistos += len(pagina)
+            print(f"    [{endpoint}] comentarios vistos: {vistos}")
+            if limite and vistos >= limite:
+                break
         return total, por_autor
 
     # ------------------------------------------------------------------ #
@@ -210,7 +201,7 @@ class SocialInteractionBetweenDevelopers(Metrica):
                 reviews = (pr.get("reviews") or {}).get("nodes", [])
                 for r in reviews:
                     if r.get("state") == "PENDING":
-                        continue  # las pendientes no son visibles para terceros
+                        continue
                     autor = r.get("author") or {}
                     login = autor.get("login")
                     if not self._es_humano(login, typename=autor.get("__typename")):
@@ -222,6 +213,9 @@ class SocialInteractionBetweenDevelopers(Metrica):
                 prs_procesados += 1
                 if limite and prs_procesados >= limite:
                     return total, por_autor
+
+            # progreso: para ver que está vivo
+            print(f"    [reviews] PRs procesados: {prs_procesados}, reviews contadas: {total}")
 
             page = prs.get("pageInfo") or {}
             if not page.get("hasNextPage"):
