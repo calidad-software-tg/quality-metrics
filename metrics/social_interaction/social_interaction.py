@@ -51,7 +51,7 @@ BOTS_CONOCIDOS = {
     "stale[bot]",
     "mergify[bot]",
     "allcontributors[bot]",
-    "tldr-bot",            # específico de tldr-pages (cuenta de usuario, no App)
+    "tldr-bot",            # específico de tldr-pages (cuenta de usuario, no App) todo ver como eliminar dependencia
 }
 
 # Tamaños de página para la paginación GraphQL de revisiones.
