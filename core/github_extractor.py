@@ -80,3 +80,15 @@ class GitHubExtractor:
             url = response.links.get("next", {}).get("url")
             query = None  # la URL "next" ya trae los params
         return results
+
+    def iter_paginated(self, owner: str, repo: str, endpoint: str, params: dict = None):
+        """Como get_paginated pero va entregando cada página (no acumula en memoria)."""
+        url = f"{self._api_base}/repos/{owner}/{repo}/{endpoint}"
+        query = {"per_page": 100}
+        if params:
+            query.update(params)
+        while url:
+            response = self._request(url, query)
+            yield response.json()
+            url = response.links.get("next", {}).get("url")
+            query = None
